@@ -1,0 +1,50 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+
+int main ()
+{
+	int time_start,time_end;
+	double cpu_time_used;
+	int i,y,j;
+	int arrayx[20];
+	
+	FILE *fp;
+	fp= fopen("TimeAnalysist.csv","w+");
+	
+for (j=0;j<1000;j++)
+{
+	time_start=clock();
+	for(i = 0; i < 20;i++)
+	{
+  		arrayx[i] = (rand() % 10)-1;
+  		printf ("%d ", arrayx[i]);
+	}
+	printf ("\n");
+	for (i=0;i<20;i++)
+	{
+	if (arrayx[i]==0)
+		{
+		y=0;
+		printf ("f(0)= %d \n",y);
+		}
+	else if (arrayx[i]%2==0)
+		{
+		y=(arrayx[i]*arrayx[i])+1;
+		printf ("fx=x^2+1 = %d \n", y);
+		}
+	else
+		{
+		y=-(arrayx[i])*(arrayx[i]);
+		printf ("fx=-x^2 = %d \n", y);
+		}
+	}
+	
+	time_end=clock();
+	cpu_time_used=((double)(time_end-time_start))/CLOCKS_PER_SEC;
+	printf ("Waktu Pemrosesan %d: %f second \n", j, cpu_time_used);
+	fprintf (fp,"%d,%f\n",j,cpu_time_used);
+}
+	fclose(fp);
+	return 0;
+}
